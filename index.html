@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checklist</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 class="title">My Checklist</h1>
+
+  <div class="main-box">
+    <div class="column" id="college">
+      <h2>College</h2>
+      <p class="empty-msg">Enjoy the calm before the next deadline storm. ☕</p>
+    </div>
+    <div class="column" id="personal">
+      <h2>Personal</h2>
+      <p class="empty-msg">Nothing on your mind? That’s rare. 😏</p>
+    </div>
+    <div class="column" id="timepass">
+      <h2>Timepass</h2>
+      <p class="empty-msg">Nothing to waste time on... suspicious. 🤔</p>
+    </div>
+  </div>
+
+  <button id="addTaskBtn" aria-label="Add task">＋</button>
+
+  <div id="popup" class="popup" aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <h2 id="popupTitle">Add Task</h2>
+
+      <label class="label">Title</label>
+      <input type="text" id="taskTitle" placeholder="Task title" />
+
+      <label class="label">Description (optional)</label>
+      <textarea id="taskDesc" placeholder="Task description"></textarea>
+
+      <label class="label">Due date (optional)</label>
+      <input type="date" id="taskDueDate" />
+
+      <label class="label">Category</label>
+      <select id="taskCategory">
+        <option value="college">College</option>
+        <option value="personal">Personal</option>
+        <option value="timepass">Timepass</option>
+      </select>
+
+      <div class="btns">
+        <button id="saveTask" class="primary">Add</button>
+        <button id="closePopup" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

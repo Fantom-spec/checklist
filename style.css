@@ -1,0 +1,223 @@
+/* ---- Base / layout ---- */
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #0a0a0a;
+  color: #00ff88;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.title {
+  margin: 20px 0;
+  font-size: 2.2rem;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+.main-box {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- Columns ---- */
+.column {
+  background: rgba(0, 255, 136, 0.03);
+  border: 2px solid #00ff88;
+  border-radius: 14px;
+  width: 30%;
+  min-height: 260px;
+  padding: 14px;
+  box-shadow: 0 0 12px #00ff88;
+  transition: all 0.28s ease;
+}
+
+.column h2 {
+  margin-top: 0;
+  text-shadow: 0 0 8px #00ff88;
+}
+
+.empty-msg {
+  color: #00ff88a0;
+  margin-top: 22px;
+  font-style: italic;
+}
+
+/* ---- Add button (floating) ---- */
+#addTaskBtn {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: #00ff88;
+  color: #04120a;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 18px #00ff88;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#addTaskBtn:hover { transform: scale(1.06); box-shadow: 0 0 28px #00ff88; }
+
+/* ---- Popup (modal) ---- */
+.popup {
+  display: none; /* toggled from JS */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.popup-content {
+  width: 92%;
+  max-width: 420px;
+  background: #0f0f0f;
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 0 20px #00ff88;
+  text-align: left;
+  animation: popIn .22s ease;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-6px) scale(.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.label {
+  display: block;
+  margin: 8px 0 6px;
+  color: #bfffd2;
+  font-size: 0.95rem;
+}
+
+/* inputs */
+.popup-content input[type="text"],
+.popup-content input[type="date"],
+.popup-content textarea,
+.popup-content select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #00ff88;
+  background: #080808;
+  color: #dfffe8;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.popup-content textarea { min-height: 80px; resize: vertical; }
+
+/* ---- Buttons in popup: use neon colors, not white ---- */
+.btns {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.btns button {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* primary = Add */
+button.primary {
+  background: #00ff88;
+  color: #04120a;
+  box-shadow: 0 0 10px #00ff88;
+}
+button.primary:hover { transform: translateY(-2px); box-shadow: 0 0 20px #00ff88; }
+
+/* secondary = Cancel */
+button.secondary {
+  background: transparent;
+  color: #bfffd2;
+  border: 1px solid rgba(191,255,210,0.15);
+  box-shadow: none;
+}
+button.secondary:hover { transform: translateY(-2px); border-color: rgba(191,255,210,0.35); }
+
+/* ---- Tasks ---- */
+.task {
+  background: #0d0d0d;
+  border: 1px solid #00ff88;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.38s cubic-bezier(.2,.8,.2,1);
+}
+
+.task:hover { box-shadow: 0 0 10px rgba(0,255,136,0.12); transform: translateY(-2px); }
+
+.task.expanded { background: #101010; }
+
+/* details hidden by default, slide down when expanded */
+.task-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.36s ease, opacity 0.28s ease;
+}
+
+.task.expanded .task-details {
+  max-height: 260px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+/* Date, due, added */
+.meta {
+  color: #bfeed7;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Complete button inside expanded area */
+.complete-btn {
+  background: #00ff88;
+  color: #04120a;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 10px;
+  box-shadow: 0 0 10px #00ff88;
+}
+.complete-btn:hover { transform: translateY(-2px); box-shadow: 0 0 18px #00ff88; }
+
+/* Completed state */
+.task.completed {
+  opacity: 0.48;
+  border-color: #6b6b6b;
+  background: #0b0b0b;
+}
+
+/* responsive */
+@media (max-width: 920px) {
+  .column { width: 90%; }
+}
